@@ -1,6 +1,18 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"a-parity-oracle-must-know-the-panel-is-open", group:"judging",
+   lesson:"A question that compares two things must first assert both exist. An empty list compared against a full one returns a confident answer that means nothing.",
+   evidence:"The pill-versus-home parity question returned home_has_more at 0.99 with an empty pill control list, because the pill had not opened. One guard question, 'is the panel open', turns that from a false find into a skipped step.",
+   source:"our re-measure on the pre-fix build, 2026-09-22", url:"#"},
+  {slug:"headless-cannot-hear", group:"acting",
+   lesson:"No headless browser reaches a speech-recognition bug. Fake-microphone flags feed audio, but the recognizer that turns it into words is a browser service that automation does not have.",
+   evidence:"Four of thirteen known bugs needed live speech recognition and stayed unreachable in both actor runs. Those rows need a human or a real browser session, and the harness should say so instead of counting them as misses.",
+   source:"our re-measure on the pre-fix build, 2026-09-22", url:"#"},
+  {slug:"set-the-threshold-before-the-run", group:"shipping",
+   lesson:"Decide the number that earns a permanent seat before the calibration run, and honour it when the run comes in under.",
+   evidence:"The bar was 8 of 13 known bugs. Sonnet found 6, Haiku found 5. No seat was created; the harness stays a tool you run on demand. That decision cost nothing because it was made in advance.",
+   source:"gm's gate on the red-team spike, 2026-09-22", url:"#"},
   {slug:"expected-empty-is-not-404", group:"shipping",
    lesson:"An empty state is not an error. Serving 404 for 'nothing here yet' teaches every reader, human or model, that the app is broken on first run.",
    evidence:"Three routes on a fresh install answered 404 for normal emptiness: the chat history list, the memory context layer, and a thread that has not been written yet. Each one produced a fan of http flags and a 'Failed to load' message a first-run user sees before they have done anything.",
@@ -11,7 +23,7 @@ window.JEV_LESSONS = [
    source:"our calibrated red-team run, 2026-09-22", url:"#"},
   {slug:"the-actor-is-the-cost-line", group:"acting",
    lesson:"With a decision model as the judge, the persona actor is where the money goes. Budget the actor, not the judge.",
-   evidence:"A full three-persona run cost $4 to $5.50, almost all of it the Sonnet actor at about 2k tokens per step. Jev for the same run was about half a cent. A smaller actor model cuts the bill roughly ten times and is one environment variable.",
+   evidence:"A full three-persona run cost $4 to $5.50, almost all of it the Sonnet actor at about 2k tokens per step. Jev for the same run was about half a cent. A smaller actor model was expected to cut the bill ten times. Measured: 2.4 times cheaper and nearly three times slower, because it takes more steps and every call has a fixed latency floor. Measure before you promise a ratio.",
    source:"our calibrated red-team run, 2026-09-22", url:"#"},
   {slug:"unreachable-rows-name-the-missing-device", group:"acting",
    lesson:"When a known bug is not reachable, say which capability the harness lacks. The list of missing devices is the build plan.",
@@ -135,6 +147,7 @@ window.JEV_LESSONS = [
    source:"jevqa", url:"https://github.com/Todmy/jevqa"},
 ];
 window.JEV_NUMBERS = [
+  {what:"Known bugs found by a persona-driven run on the pre-fix build, 13 known", value:"Sonnet actor 6, Haiku actor 5", note:"$5.80 vs $2.46 actor cost; 10 min vs 27 min; 4 rows unreachable without speech recognition", url:"#"},
   {what:"Our first run of jevqa against the OrchestraOS staging build", value:"8 findings, 50 steps, 290 s, $0.50", note:"179 Jev calls, 3 Claude calls; 6 of 28 expectations exercised clean; 0 confirmed defects, 1 UX gap (no visible reaction when the file picker opens)", url:"#"},
   {what:"Bugs found on 20 benchmark apps with 107 known bugs", value:"22%", note:"jevqa v15, 50 actions per app", url:"https://github.com/Todmy/jevqa/blob/main/BENCHMARK.md"},
   {what:"Cost and time per app for that run", value:"$0.29 to $0.41, 5 to 6 min", note:"Claude Opus plus Playwright on the same apps: $3.20 and 17%", url:"https://github.com/Todmy/jevqa/blob/main/BENCHMARK.md"},
@@ -145,6 +158,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"Side-by-side re-measure with two actor models. Corrected the actor-cost lesson with the measured ratio. Three new lessons: a parity oracle must know the panel is open, headless cannot hear, set the threshold before the run."},
   {date:"2026-09-22", text:"First calibrated red-team run with personas: found 4, missed 2, unreachable 7 of 13 known bugs, hand-judged. Four lessons: expected-empty is not 404, auto-found cannot fail, the actor is the cost line, unreachable rows name the missing device."},
   {date:"2026-09-22", text:"Headed run on a Mac, watched live. Four lessons: icon-only controls are invisible, a flat planner drifts, one broken route fans out into many flags, and watching one run headed beats reading ten reports."},
   {date:"2026-09-22", text:"First jevqa run against our staging build. Four lessons added from it: native dialogs are invisible to text oracles, the absence path needs nav vocabulary, an http flag is a place to look, and the tester probes injection for free."},

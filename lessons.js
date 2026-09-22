@@ -1,6 +1,14 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"a-candidate-cap-reads-as-a-missing-feature", group:"acting",
+   lesson:"When the harness truncates the list of things it can click, anything past the cut looks absent. Report the cap with the finding, or the product gets blamed for the tool.",
+   evidence:"A navigation link was reported as unreachable on two builds. It was present, visible and worked on click. It was simply the last item in a long sidebar and fell past the fortieth candidate the tester was allowed to consider.",
+   source:"our staging runs, 2026-09-22", url:"#"},
+  {slug:"an-unstable-judge-is-not-a-finding", group:"judging",
+   lesson:"If the same screen answers differently on a sibling screenshot, the instability belongs to the judge. Log it as a harness defect, never publish it as a product claim.",
+   evidence:"A vision check reported a chip as too tall on one screenshot and fine on its neighbour in both runs. The seat that owned the harness declined to publish it and wrote it up against itself instead.",
+   source:"our staging runs, 2026-09-22", url:"#"},
   {slug:"sample-past-the-timeout-you-are-testing", group:"reading",
    lesson:"Reading a state once, inside the window a timer is still running, reports the old state as the answer. Sample past every timeout the feature owns.",
    evidence:"A silent-recognizer watchdog fires at four seconds. The first check waited three and a half and said the bug was unfixed; a second check waited exactly four thousand milliseconds and caught the boundary, so it also looked unfixed. Sampling to eighteen seconds showed the state clearing and the reason appearing. Two people made the same mistake an hour apart.",
@@ -174,6 +182,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"Two of three open bugs turned out to belong to the harness, not the product: a candidate cap read as a missing feature, and an unstable vision judge read as a layout bug. Both recorded as lessons instead."},
   {date:"2026-09-22", text:"Two lessons from a wrong diagnosis of ours: sample past the timeout you are testing, and nothing-happened is not a dropped error. The fix was a watchdog on silence."},
   {date:"2026-09-22", text:"Added the companion to the fence lesson: lift the gate you fenced, not the fence. Two gates blocked the same restart and only one had cleared."},
   {date:"2026-09-22", text:"Added the fence lesson: a rule addressed to people does not bind the automation that will actually act. Same shape as the oracle lessons already here."},

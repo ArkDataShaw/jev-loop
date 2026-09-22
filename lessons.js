@@ -1,6 +1,10 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"dictation-journey-needs-two-browsers", group:"acting",
+   lesson:"A dictation journey is two journeys: one per speech path. Test the browser-native path and the record-then-transcribe path separately, on the browsers that use each.",
+   evidence:"Our staging build dictates through Web Speech on Chromium and through a recorded clip plus local transcription elsewhere. A headless run has no microphone, so the harness needs a stand-in recogniser for the first path and a fixture clip for the second.",
+   source:"gm's routing after the first run, 2026-09-22", url:"#"},
   {slug:"native-dialogs-are-invisible-to-text", group:"reading",
    lesson:"A file picker, a permission prompt, or any native dialog leaves no trace in page text. A text-diff oracle will call the button dead.",
    evidence:"Our first jevqa run flagged Attach a file as ignored on two screens with 0.88 and 0.91 probability. The button works; it opens the OS file chooser, which is invisible to the DOM. The fix is on our side: expose a chip, a status line, or an aria-live message the moment the picker opens, so a user (and a tester) sees the app react.",

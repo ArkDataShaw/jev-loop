@@ -1,6 +1,10 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"a-fence-that-binds-only-people-has-a-door-in-it", group:"shipping",
+   lesson:"When you freeze a process, list its automated callers first. Boot hooks, cron lines and watchdogs never read the notice you addressed to the team.",
+   evidence:"A freeze on restarting a projection service was mailed to every person on the fleet. A reboot line in the crontab would have restarted it anyway, with ungraded code, through a conditional branch nobody was thinking about. Another agent found it by reading the call graph of a file it happened to have edited that day.",
+   source:"our fleet, 2026-09-22", url:"#"},
   {slug:"a-parity-oracle-must-know-the-panel-is-open", group:"judging",
    lesson:"A question that compares two things must first assert both exist. An empty list compared against a full one returns a confident answer that means nothing.",
    evidence:"The pill-versus-home parity question returned home_has_more at 0.99 with an empty pill control list, because the pill had not opened. One guard question, 'is the panel open', turns that from a false find into a skipped step.",
@@ -158,6 +162,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"Added the fence lesson: a rule addressed to people does not bind the automation that will actually act. Same shape as the oracle lessons already here."},
   {date:"2026-09-22", text:"Side-by-side re-measure with two actor models. Corrected the actor-cost lesson with the measured ratio. Three new lessons: a parity oracle must know the panel is open, headless cannot hear, set the threshold before the run."},
   {date:"2026-09-22", text:"First calibrated red-team run with personas: found 4, missed 2, unreachable 7 of 13 known bugs, hand-judged. Four lessons: expected-empty is not 404, auto-found cannot fail, the actor is the cost line, unreachable rows name the missing device."},
   {date:"2026-09-22", text:"Headed run on a Mac, watched live. Four lessons: icon-only controls are invisible, a flat planner drifts, one broken route fans out into many flags, and watching one run headed beats reading ten reports."},

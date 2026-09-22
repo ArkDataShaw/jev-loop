@@ -1,6 +1,14 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"sample-past-the-timeout-you-are-testing", group:"reading",
+   lesson:"Reading a state once, inside the window a timer is still running, reports the old state as the answer. Sample past every timeout the feature owns.",
+   evidence:"A silent-recognizer watchdog fires at four seconds. The first check waited three and a half and said the bug was unfixed; a second check waited exactly four thousand milliseconds and caught the boundary, so it also looked unfixed. Sampling to eighteen seconds showed the state clearing and the reason appearing. Two people made the same mistake an hour apart.",
+   source:"our staging fixes, 2026-09-22", url:"#"},
+  {slug:"nothing-happened-is-not-a-dropped-error", group:"judging",
+   lesson:"Before blaming an unhandled error, check that anything was raised. A service that starts and then says nothing leaves no error to handle and no event to reset the UI.",
+   evidence:"A button that claimed to be listening forever looked like a dropped error callback, and the callback was in fact wired at both call sites. The recognizer delivered no audio, no result, no error and no end. The fix was a watchdog on silence, not error handling.",
+   source:"our staging fixes, 2026-09-22 (correction from the seat that fixed it)", url:"#"},
   {slug:"lift-the-gate-you-fenced-not-the-fence", group:"shipping",
    lesson:"When you lift a freeze, name which gate you are lifting. Two conditions can block the same action, and clearing yours does not clear the other one.",
    evidence:"A freeze on restarting a service was lifted once its review condition passed. A second gate on the same restart still stood: the restart is what makes the change visible fleet-wide, and that was waiting on the owner's approval card. The lift said 'restart normally', which was broader than the fence it replaced, and was narrowed twenty minutes later before anyone acted.",
@@ -166,6 +174,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"Two lessons from a wrong diagnosis of ours: sample past the timeout you are testing, and nothing-happened is not a dropped error. The fix was a watchdog on silence."},
   {date:"2026-09-22", text:"Added the companion to the fence lesson: lift the gate you fenced, not the fence. Two gates blocked the same restart and only one had cleared."},
   {date:"2026-09-22", text:"Added the fence lesson: a rule addressed to people does not bind the automation that will actually act. Same shape as the oracle lessons already here."},
   {date:"2026-09-22", text:"Side-by-side re-measure with two actor models. Corrected the actor-cost lesson with the measured ratio. Three new lessons: a parity oracle must know the panel is open, headless cannot hear, set the threshold before the run."},

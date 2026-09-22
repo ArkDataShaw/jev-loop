@@ -1,6 +1,22 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"expected-empty-is-not-404", group:"shipping",
+   lesson:"An empty state is not an error. Serving 404 for 'nothing here yet' teaches every reader, human or model, that the app is broken on first run.",
+   evidence:"Three routes on a fresh install answered 404 for normal emptiness: the chat history list, the memory context layer, and a thread that has not been written yet. Each one produced a fan of http flags and a 'Failed to load' message a first-run user sees before they have done anything.",
+   source:"our calibrated red-team run, 2026-09-22", url:"#"},
+  {slug:"auto-found-is-a-check-that-cannot-fail", group:"judging",
+   lesson:"A recall table that marks 'found' whenever any flag fired on the mapped journey cannot fail. Require the finding text to name the bug's control or effect.",
+   evidence:"The generated table over-counted; a hand pass over the same runs landed at found 4, missed 2, not reachable 7 of 13, and named why for every row.",
+   source:"our calibrated red-team run, 2026-09-22", url:"#"},
+  {slug:"the-actor-is-the-cost-line", group:"acting",
+   lesson:"With a decision model as the judge, the persona actor is where the money goes. Budget the actor, not the judge.",
+   evidence:"A full three-persona run cost $4 to $5.50, almost all of it the Sonnet actor at about 2k tokens per step. Jev for the same run was about half a cent. A smaller actor model cuts the bill roughly ten times and is one environment variable.",
+   source:"our calibrated red-team run, 2026-09-22", url:"#"},
+  {slug:"unreachable-rows-name-the-missing-device", group:"acting",
+   lesson:"When a known bug is not reachable, say which capability the harness lacks. The list of missing devices is the build plan.",
+   evidence:"Five of seven unreachable rows needed a microphone; one needed a chat window instead of a page; one needed a parity question that did not exist. Fake-mic flags, a parity oracle, and four success-check fixes became the next three changes.",
+   source:"our calibrated red-team run, 2026-09-22", url:"#"},
   {slug:"icon-only-controls-are-invisible", group:"reading",
    lesson:"A control with only an icon and a hover tooltip does not exist for any reader that is not a hovering human. Testers, screen readers and the model all see an unnamed button.",
    evidence:"The agent card's open-chat button is a maximize icon with a title attribute. In 18 visits to the agents page the tester never opened a chat; it clicked Menu, Kill and the assistant box instead. Shaw spotted it from the behaviour before we read the code.",
@@ -129,6 +145,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"First calibrated red-team run with personas: found 4, missed 2, unreachable 7 of 13 known bugs, hand-judged. Four lessons: expected-empty is not 404, auto-found cannot fail, the actor is the cost line, unreachable rows name the missing device."},
   {date:"2026-09-22", text:"Headed run on a Mac, watched live. Four lessons: icon-only controls are invisible, a flat planner drifts, one broken route fans out into many flags, and watching one run headed beats reading ten reports."},
   {date:"2026-09-22", text:"First jevqa run against our staging build. Four lessons added from it: native dialogs are invisible to text oracles, the absence path needs nav vocabulary, an http flag is a place to look, and the tester probes injection for free."},
   {date:"2026-09-22", text:"Site opened with 20 lessons from four open-source projects, three papers and our own two loops: reading agent terminals and routing voice. Next: run jevqa against our staging build and add what it teaches."},

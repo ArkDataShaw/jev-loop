@@ -1,6 +1,10 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"lift-the-gate-you-fenced-not-the-fence", group:"shipping",
+   lesson:"When you lift a freeze, name which gate you are lifting. Two conditions can block the same action, and clearing yours does not clear the other one.",
+   evidence:"A freeze on restarting a service was lifted once its review condition passed. A second gate on the same restart still stood: the restart is what makes the change visible fleet-wide, and that was waiting on the owner's approval card. The lift said 'restart normally', which was broader than the fence it replaced, and was narrowed twenty minutes later before anyone acted.",
+   source:"our fleet, 2026-09-22", url:"#"},
   {slug:"a-fence-that-binds-only-people-has-a-door-in-it", group:"shipping",
    lesson:"When you freeze a process, list its automated callers first. Boot hooks, cron lines and watchdogs never read the notice you addressed to the team.",
    evidence:"A freeze on restarting a projection service was mailed to every person on the fleet. A reboot line in the crontab would have restarted it anyway, with ungraded code, through a conditional branch nobody was thinking about. Another agent found it by reading the call graph of a file it happened to have edited that day.",
@@ -162,6 +166,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"Added the companion to the fence lesson: lift the gate you fenced, not the fence. Two gates blocked the same restart and only one had cleared."},
   {date:"2026-09-22", text:"Added the fence lesson: a rule addressed to people does not bind the automation that will actually act. Same shape as the oracle lessons already here."},
   {date:"2026-09-22", text:"Side-by-side re-measure with two actor models. Corrected the actor-cost lesson with the measured ratio. Three new lessons: a parity oracle must know the panel is open, headless cannot hear, set the threshold before the run."},
   {date:"2026-09-22", text:"First calibrated red-team run with personas: found 4, missed 2, unreachable 7 of 13 known bugs, hand-judged. Four lessons: expected-empty is not 404, auto-found cannot fail, the actor is the cost line, unreachable rows name the missing device."},

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jev-loop</title>
+<meta name="description" content="A field ledger of lessons for building loops on a decision model: judging, acting, reading screens, voice. Measured, sourced, updated as we learn.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EEF1F4;--panel:#FFFFFF;--ink:#14213D;--ink2:#3C4A63;--mute:#6B7A8F;--rule:#C9D1DC;--teal:#0E7C7B;--teal2:#D7ECEB;--amber:#B8690F;--amber2:#F6E7D2;--max:1040px}
+*{box-sizing:border-box}
+html{background:var(--paper);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;font-optical-sizing:auto;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+body{margin:0;font-size:17px;line-height:1.5}
+a{color:var(--teal);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0 0}
+header.top .name{font-weight:700;font-size:20px;letter-spacing:-.01em}
+header.top nav a{margin-left:20px;color:var(--ink2);text-decoration:none}
+header.top nav a:hover{color:var(--teal)}
+/* hero: the loop itself, one real answer */
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end}
+.hero h1{font-size:clamp(40px,6vw,64px);line-height:1.02;letter-spacing:-.025em;font-weight:600;margin:0 0 20px;max-width:16ch}
+.hero p.lede{font-size:20px;line-height:1.45;color:var(--ink2);margin:0;max-width:44ch}
+.answer{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:20px 22px 18px}
+.answer .q{font-size:15px;color:var(--mute);margin:0 0 4px}
+.answer .ask{font-weight:600;font-size:17px;margin:0 0 16px;line-height:1.35}
+.bar{display:grid;grid-template-columns:160px 1fr 52px;gap:12px;align-items:center;margin:9px 0;font-size:15px}
+.bar .t{height:14px;background:var(--teal2);border-radius:3px;overflow:hidden}
+.bar .t i{display:block;height:100%;width:0;background:var(--teal);transform-origin:left;transition:width 900ms cubic-bezier(.2,.8,.2,1)}
+.bar .v{text-align:right;color:var(--ink2)}
+.answer .meta{display:flex;justify-content:space-between;font-size:14px;color:var(--mute);margin-top:14px;border-top:1px solid var(--rule);padding-top:10px}
+.answer .meta b{color:var(--teal);font-weight:600}
+@media (prefers-reduced-motion:reduce){.bar .t i{transition:none}}
+/* sections */
+section{padding:40px 0;border-top:1px solid var(--rule)}
+h2{font-size:30px;letter-spacing:-.02em;font-weight:600;margin:0 0 8px}
+.sub{color:var(--ink2);margin:0 0 28px;max-width:60ch}
+/* the loop diagram */
+.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--panel)}
+.loop div{padding:18px 20px;border-left:1px solid var(--rule)}
+.loop div:first-child{border-left:0}
+.loop b{display:block;font-size:19px;margin-bottom:6px}
+.loop span{color:var(--ink2);font-size:15.5px}
+.loop div.model{background:var(--teal2)}
+/* ledger */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.filters button{font:inherit;font-size:15px;padding:6px 12px;border:1px solid var(--rule);background:var(--panel);color:var(--ink2);border-radius:999px;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ledger{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:1.25fr 1.25fr .55fr;gap:28px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.row h3{margin:0 0 6px;font-size:19px;line-height:1.3;font-weight:600;letter-spacing:-.01em}
+.row h3 a{color:inherit;text-decoration:none}
+.row h3 a:hover{color:var(--teal)}
+.row .g{font-size:14px;color:var(--teal);font-weight:600}
+.row .e{color:var(--ink2);font-size:16px;margin:0}
+.row .s{font-size:15px;color:var(--mute)}
+.row .s a{color:var(--mute)}
+.row:target{background:linear-gradient(90deg,var(--amber2),transparent 60%);margin:0 -16px;padding-left:16px;padding-right:16px}
+/* numbers */
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{text-align:left;font-weight:600;border-bottom:2px solid var(--ink);padding:0 0 8px}
+td{padding:12px 16px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.val{white-space:nowrap;color:var(--amber);font-weight:600}
+td.note{color:var(--mute);font-size:15px}
+/* playbook */
+ol.play{padding-left:22px;margin:0;max-width:66ch}
+ol.play li{margin:0 0 12px}
+code{font-family:inherit;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:1px 6px;font-size:.95em}
+pre{background:var(--ink);color:#EEF1F4;padding:14px 16px;border-radius:6px;overflow-x:auto;font-size:15px;line-height:1.5}
+pre code{background:none;border:0;padding:0;color:inherit}
+/* changelog */
+.log{list-style:none;padding:0;margin:0;max-width:66ch}
+.log li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.log time{color:var(--mute)}
+footer{padding:36px 0 48px;color:var(--mute);font-size:15px}
+footer p{margin:0 0 8px;max-width:70ch}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:28px;padding-top:44px}.loop{grid-template-columns:1fr 1fr}.loop div:nth-child(3){border-left:0}.loop div:nth-child(n+3){border-top:1px solid var(--rule)}.row{grid-template-columns:1fr;gap:10px}.bar{grid-template-columns:120px 1fr 48px}}
+@media (max-width:520px){.loop{grid-template-columns:1fr}.loop div{border-left:0;border-top:1px solid var(--rule)}.loop div:first-child{border-top:0}header.top nav a{margin-left:12px;font-size:15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="name">jev-loop</div>
+  <nav><a href="#loop">The loop</a><a href="#lessons">Lessons</a><a href="#numbers">Numbers</a><a href="#playbook">Start</a><a href="#changelog">Changes</a></nav>
+</header>
+
+<div class="hero">
+  <div>
+    <h1>Field notes on building loops around a decision model.</h1>
+    <p class="lede">Jev answers typed questions about a state with calibrated probabilities. It never writes text. That makes it cheap enough to sit inside a loop that runs on every screen, every spoken word, every agent turn. These are the lessons that cost someone something, with the numbers attached.</p>
+  </div>
+  <div class="answer" aria-label="A real answer from the model">
+    <p class="q">One real request, reading an agent's terminal</p>
+    <p class="ask">What follows the prompt marker on the last line?</p>
+    <div class="bar"><span>faint suggestion</span><span class="t"><i data-w="99"></i></span><span class="v">0.99</span></div>
+    <div class="bar"><span>typed text</span><span class="t"><i data-w="1"></i></span><span class="v">0.01</span></div>
+    <div class="bar"><span>nothing</span><span class="t"><i data-w="0"></i></span><span class="v">0.00</span></div>
+    <div class="meta"><span>confidence <b>0.99</b></span><span>609 input tokens</span><span>jev-1.13.0</span></div>
+  </div>
+</div>
+
+<section id="loop">
+  <h2>The loop</h2>
+  <p class="sub">Every system on this site has the same four beats. Code owns three of them. The model owns one, and it is the only one that costs money.</p>
+  <div class="loop">
+    <div><b>Observe</b><span>Capture the state as text or JSON: a page diff, a transcript, a terminal tail, a record. Code does this.</span></div>
+    <div class="model"><b>Ask</b><span>One request, many typed questions: yes or no, pick one, score on a rubric. Answers come back as probabilities in about 300 ms.</span></div>
+    <div><b>Decide</b><span>Thresholds and policy live in code. Act, wait, ask a human, or ignore. Low confidence is a branch, not an error.</span></div>
+    <div><b>Verify</b><span>Check the effect, not the action. Replay, re-read, or hand the claim to a session that has never seen it.</span></div>
+  </div>
+</section>
+
+<section id="lessons">
+  <h2>Lessons</h2>
+  <p class="sub">Each row is one thing we would not have known without someone paying for it. Evidence is measured where it can be. Filter by which beat of the loop it belongs to.</p>
+  <div class="filters" role="group" aria-label="Filter lessons">
+    <button aria-pressed="true" data-g="all">All</button>
+    <button aria-pressed="false" data-g="judging">Judging</button>
+    <button aria-pressed="false" data-g="acting">Acting</button>
+    <button aria-pressed="false" data-g="reading">Reading screens</button>
+    <button aria-pressed="false" data-g="voice">Voice</button>
+    <button aria-pressed="false" data-g="shipping">Shipping</button>
+  </div>
+  <div class="ledger" id="ledger"></div>
+</section>
+
+<section id="numbers">
+  <h2>Numbers we trust</h2>
+  <p class="sub">Published by the people who measured them, or measured by us. Anything without a source is not here.</p>
+  <table><thead><tr><th>What</th><th>Value</th><th>Note</th></tr></thead><tbody id="numbers-body"></tbody></table>
+</section>
+
+<section id="playbook">
+  <h2>Start in thirty minutes</h2>
+  <p class="sub">Before building anything, run the closest thing that already exists against your own app and read its report.</p>
+  <ol class="play">
+    <li>Get a key from the TypeSafe console and export it as <code>TYPESAFE_API_KEY</code>. Never put it in a file you commit.</li>
+    <li>Point jevqa at a deployed build with the spec the app was built from. It explores on its own and writes a report with a screenshot per finding.
+      <pre><code>uvx jevqa run https://your-staging-url --spec README.md --steps 50</code></pre></li>
+    <li>Read missing features first. They are the most reliable findings. Skim the rest in ninety seconds and expect about one in eight to be a real defect.</li>
+    <li>Add the two things the tool does not do: a second session that tries to disprove each finding, and a run verdict that publishes nothing when the app was never reached.</li>
+    <li>Keep three to five journeys the questions were never tuned on. Score every change against those, not against the ones you tuned.</li>
+    <li>Only then decide how much persona and goal-driven behaviour to build on top. The judge is rarely the limit; the actor is.</li>
+  </ol>
+</section>
+
+<section id="changelog">
+  <h2>Changes</h2>
+  <ul class="log" id="log"></ul>
+</section>
+
+<footer>
+  <p>Sources: jevqa and its benchmark, jev-voice-browser, jev-voice, jev-voice-control, web-qa-jev-agent, qa-ai-harness, the qa-agent design notes, UXAgent, PerceptUI, WebTestPilot, and the TypeSafe documentation. Our own numbers come from live runs on our fleet and are dated in the evidence.</p>
+  <p>This site is a ledger, not a manual. When a lesson stops being true we change it and say so in the changes list.</p>
+</footer>
+</div>
+<script src="lessons.js"></script>
+<script>
+(function(){
+  var L=window.JEV_LESSONS||[], N=window.JEV_NUMBERS||[], C=window.JEV_CHANGELOG||[];
+  var names={judging:"Judging",acting:"Acting",reading:"Reading screens",voice:"Voice",shipping:"Shipping"};
+  var ledger=document.getElementById('ledger');
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function render(g){
+    ledger.innerHTML=L.filter(function(x){return g==='all'||x.group===g;}).map(function(x){
+      var src=x.url&&x.url!=='#'?'<a href="'+esc(x.url)+'" rel="noopener">'+esc(x.source)+'</a>':esc(x.source);
+      return '<article class="row" id="'+esc(x.slug)+'"><div><div class="g">'+esc(names[x.group]||x.group)+'</div><h3><a href="#'+esc(x.slug)+'">'+esc(x.lesson)+'</a></h3></div><p class="e">'+esc(x.evidence)+'</p><div class="s">'+src+'</div></article>';
+    }).join('');
+  }
+  render('all');
+  document.querySelectorAll('.filters button').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('.filters button').forEach(function(o){o.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true'); render(b.dataset.g);
+  });});
+  document.getElementById('numbers-body').innerHTML=N.map(function(n){
+    var w=n.url&&n.url!=='#'?'<a href="'+esc(n.url)+'" rel="noopener">'+esc(n.what)+'</a>':esc(n.what);
+    return '<tr><td>'+w+'</td><td class="val">'+esc(n.value)+'</td><td class="note">'+esc(n.note)+'</td></tr>';}).join('');
+  document.getElementById('log').innerHTML=C.map(function(c){return '<li><time datetime="'+esc(c.date)+'">'+esc(c.date)+'</time><span>'+esc(c.text)+'</span></li>';}).join('');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){document.querySelectorAll('.bar i').forEach(function(i){i.style.width=i.dataset.w+'%';});});});
+  if(location.hash){var el=document.getElementById(location.hash.slice(1)); if(el) el.scrollIntoView();}
+})();
+</script>
+</body>
+</html>

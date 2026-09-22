@@ -1,6 +1,22 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"icon-only-controls-are-invisible", group:"reading",
+   lesson:"A control with only an icon and a hover tooltip does not exist for any reader that is not a hovering human. Testers, screen readers and the model all see an unnamed button.",
+   evidence:"The agent card's open-chat button is a maximize icon with a title attribute. In 18 visits to the agents page the tester never opened a chat; it clicked Menu, Kill and the assistant box instead. Shaw spotted it from the behaviour before we read the code.",
+   source:"our headed run on staging, 2026-09-22", url:"#"},
+  {slug:"a-flat-planner-drifts", group:"acting",
+   lesson:"A planner that asks only 'which control next' with the whole spec as the goal drifts between pages. It needs to know which step of which journey it is on and what its last action changed.",
+   evidence:"Eighty steps, thirty screens, sixteen random side-steps, zero completed journeys. Every choice on the agents page landed between 0.06 and 0.39 confidence. The report was still useful: the oracle side found a real unmounted route.",
+   source:"our headed run on staging, 2026-09-22", url:"#"},
+  {slug:"one-broken-route-fans-out", group:"judging",
+   lesson:"One failing request can flag a dozen unrelated steps when the page polls it. Group http flags by the failing URL before reading them as separate bugs.",
+   evidence:"Twelve http_error flags across five pages traced to one unmounted API route that the chat-history page polls. Replaying the actual actions on those pages returned 200.",
+   source:"our headed run on staging, 2026-09-22", url:"#"},
+  {slug:"watch-one-run-headed", group:"shipping",
+   lesson:"Watch at least one run with your own eyes. The person who knows the product reads the tester's confusion faster than any report does.",
+   evidence:"Shaw watched the run from his Mac and asked why it kept refreshing and typing digits. That question led straight to the undiscoverable open-chat button and the missing create-agent control, neither of which the report named.",
+   source:"our headed run on staging, 2026-09-22", url:"#"},
   {slug:"dictation-journey-needs-two-browsers", group:"acting",
    lesson:"A dictation journey is two journeys: one per speech path. Test the browser-native path and the record-then-transcribe path separately, on the browsers that use each.",
    evidence:"Our staging build dictates through Web Speech on Chromium and through a recorded clip plus local transcription elsewhere. A headless run has no microphone, so the harness needs a stand-in recogniser for the first path and a fixture clip for the second.",
@@ -113,6 +129,7 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"Headed run on a Mac, watched live. Four lessons: icon-only controls are invisible, a flat planner drifts, one broken route fans out into many flags, and watching one run headed beats reading ten reports."},
   {date:"2026-09-22", text:"First jevqa run against our staging build. Four lessons added from it: native dialogs are invisible to text oracles, the absence path needs nav vocabulary, an http flag is a place to look, and the tester probes injection for free."},
   {date:"2026-09-22", text:"Site opened with 20 lessons from four open-source projects, three papers and our own two loops: reading agent terminals and routing voice. Next: run jevqa against our staging build and add what it teaches."},
 ];

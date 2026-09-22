@@ -1,6 +1,22 @@
 // jev-loop — the field ledger. Add a lesson = add an object. Keep evidence measured, name who paid for it.
 // group: judging | acting | reading | voice | shipping
 window.JEV_LESSONS = [
+  {slug:"native-dialogs-are-invisible-to-text", group:"reading",
+   lesson:"A file picker, a permission prompt, or any native dialog leaves no trace in page text. A text-diff oracle will call the button dead.",
+   evidence:"Our first jevqa run flagged Attach a file as ignored on two screens with 0.88 and 0.91 probability. The button works; it opens the OS file chooser, which is invisible to the DOM. The fix is on our side: expose a chip, a status line, or an aria-live message the moment the picker opens, so a user (and a tester) sees the app react.",
+   source:"our jevqa run on staging, 2026-09-22", url:"#"},
+  {slug:"absence-path-needs-nav-in-the-spec-vocabulary", group:"judging",
+   lesson:"The absence path only works when the spec names controls in the words the UI uses. A page reachable through a drawer is not missing, but the tester cannot know that.",
+   evidence:"Three of eight findings said Agents, Approvals and Inbox were missing from the home screen. All three exist behind the menu drawer. The spec said 'Agents page'; the home screen shows a menu glyph. Either name the drawer in the spec or expose the nav as text.",
+   source:"our jevqa run on staging, 2026-09-22", url:"#"},
+  {slug:"a-flag-is-a-place-to-look", group:"judging",
+   lesson:"An http_error flag with low oracle probabilities is a network sample, not a verdict. Replay the request yourself before calling it a bug.",
+   evidence:"Two flags cited an HTTP error after clicking Ask Arturo and New. The oracle questions on those steps read 0.14 to 0.44. We replayed the same text request against the box and got 200 with a reply. Keep the flag, downgrade it to 'look here'.",
+   source:"our jevqa run on staging, 2026-09-22", url:"#"},
+  {slug:"the-tester-probes-injection-for-free", group:"acting",
+   lesson:"An exploratory tester types script tags and digit strings into every box. Read what your assistant said back; that transcript is a free sanitisation test.",
+   evidence:"The run sent a stray script tag and a five-digit string to the assistant. Both landed as plain text and the assistant said so. That is a passing result nobody wrote a test for.",
+   source:"our jevqa run on staging, 2026-09-22", url:"#"},
   {slug:"belief-is-not-a-finding", group:"judging",
    lesson:"A candidate bug is not a finding until a second session with no memory has tried to disprove it.",
    evidence:"A single long-lived agent that tests and then checks its own work agrees with itself. Only survivors of the verifier reach a human.",
@@ -83,6 +99,7 @@ window.JEV_LESSONS = [
    source:"jevqa", url:"https://github.com/Todmy/jevqa"},
 ];
 window.JEV_NUMBERS = [
+  {what:"Our first run of jevqa against the OrchestraOS staging build", value:"8 findings, 50 steps, 290 s, $0.50", note:"179 Jev calls, 3 Claude calls; 6 of 28 expectations exercised clean; 0 confirmed defects, 1 UX gap (no visible reaction when the file picker opens)", url:"#"},
   {what:"Bugs found on 20 benchmark apps with 107 known bugs", value:"22%", note:"jevqa v15, 50 actions per app", url:"https://github.com/Todmy/jevqa/blob/main/BENCHMARK.md"},
   {what:"Cost and time per app for that run", value:"$0.29 to $0.41, 5 to 6 min", note:"Claude Opus plus Playwright on the same apps: $3.20 and 17%", url:"https://github.com/Todmy/jevqa/blob/main/BENCHMARK.md"},
   {what:"Findings that are confirmed defects", value:"1 in 8", note:"published by the tool's author", url:"https://github.com/Todmy/jevqa"},
@@ -92,5 +109,6 @@ window.JEV_NUMBERS = [
   {what:"Context limits per request", value:"64k tokens total, 32k per question", note:"state plus all questions; state plus the longest question", url:"https://docs.typesafe.ai/models"},
 ];
 window.JEV_CHANGELOG = [
+  {date:"2026-09-22", text:"First jevqa run against our staging build. Four lessons added from it: native dialogs are invisible to text oracles, the absence path needs nav vocabulary, an http flag is a place to look, and the tester probes injection for free."},
   {date:"2026-09-22", text:"Site opened with 20 lessons from four open-source projects, three papers and our own two loops: reading agent terminals and routing voice. Next: run jevqa against our staging build and add what it teaches."},
 ];
